@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام Brute Force المتقدم</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>نظام Brute Force المتقدم</h1>
+            </div>
+            <div class="status" id="status">
+                <i class="fas fa-circle status-ready"></i>
+                <span>جاهز للبدء</span>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="input-section">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-key"></i>
+                        <h3>الباسوردات</h3>
+                    </div>
+                    <div class="card-body">
+                        <textarea id="passwords" placeholder="أدخل الباسوردات هنا (واحد لكل سطر)...
+password1
+password2
+password3"></textarea>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-user"></i>
+                        <h3>الحسابات</h3>
+                    </div>
+                    <div class="card-body">
+                        <textarea id="users" placeholder="أدخل أسماء المستخدمين هنا (واحد لكل سطر)...
+user1
+user2
+user3"></textarea>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-globe"></i>
+                        <h3>البروكسيات (اختياري)</h3>
+                    </div>
+                    <div class="card-body">
+                        <textarea id="proxies" placeholder="أدخل البروكسيات هنا (واحد لكل سطر)...
+socks5://proxy1:1080
+socks5://proxy2:1080
+socks5://proxy3:1080"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-cog"></i>
+                        <h3>الإعدادات</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="setting-item">
+                            <label for="delay">
+                                <i class="fas fa-clock"></i>
+                                التأخير بين المحاولات (ثانية)
+                            </label>
+                            <input type="number" id="delay" value="5" min="1" max="60">
+                        </div>
+
+                        <div class="setting-item">
+                            <label for="rotateEvery">
+                                <i class="fas fa-sync-alt"></i>
+                                تبديل البروكسي كل
+                            </label>
+                            <input type="number" id="rotateEvery" value="5" min="1" max="50">
+                        </div>
+
+                        <div class="setting-item">
+                            <label for="timeout">
+                                <i class="fas fa-hourglass-half"></i>
+                                وقت انتظار الاتصال (ثانية)
+                            </label>
+                            <input type="number" id="timeout" value="30" min="5" max="60">
+                        </div>
+
+                        <div class="buttons">
+                            <button id="startBtn" class="btn btn-primary">
+                                <i class="fas fa-play"></i>
+                                بدء التشغيل
+                            </button>
+                            <button id="stopBtn" class="btn btn-danger" disabled>
+                                <i class="fas fa-stop"></i>
+                                إيقاف
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <div class="stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="goodCount">0</span>
+                            <span class="stat-label">باسورد صحيح</span>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="badCount">0</span>
+                            <span class="stat-label">باسورد خاطئ</span>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="attemptCount">0</span>
+                            <span class="stat-label">محاولة</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-tasks"></i>
+                    <h3>سجل المهام</h3>
+                </div>
+                <div class="card-body">
+                    <div class="log-container" id="log"></div>
+                </div>
+            </div>
+
+            <div class="results-cards">
+                <div class="card result-card">
+                    <div class="card-header success-header">
+                        <i class="fas fa-check"></i>
+                        <h3>الباسوردات الصحيحة</h3>
+                    </div>
+                    <div class="card-body">
+                        <textarea id="goodPasswords" readonly placeholder="سيتم عرض الباسوردات الصحيحة هنا..."></textarea>
+                    </div>
+                </div>
+
+                <div class="card result-card">
+                    <div class="card-header error-header">
+                        <i class="fas fa-times"></i>
+                        <h3>الباسوردات الفاشلة</h3>
+                    </div>
+                    <div class="card-body">
+                        <textarea id="badPasswords" readonly placeholder="سيتم عرض الباسوردات الفاشلة هنا..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
